@@ -19,10 +19,12 @@ int main(int argc, char *argv[]) {
   int width, height, bpp;
   unsigned char  *buffer;
   
-  uint8_t* xray = stbi_load(argv[1], &width, &height, &bpp, 3);
-  
-  
+  uint8_t *xray = stbi_load(argv[1], &width, &height, &bpp, 3);
   size_t img_size = width * height * bpp;
+  printf("HEIGHT: %i WIDTH: %i SIZE: %li\n", height, width, img_size);
+  
+  
+  
   int line_break = 1;
 
   for(unsigned char *p = xray; p != xray + img_size; p += bpp, line_break++){
