@@ -23,21 +23,25 @@ basic_info load_basic_info(char *file_name){
   fseek(img_file, 20, SEEK_SET);
   fread(buffer, 1, 4, img_file);
   this_file->width = atoi(buffer);
-  
   printf("%li\n", sizeof(*img_file));
-
   fclose(img_file);
   return *this_file;
-  
-  
 }
 
-int main(void){
-  basic_info clear1;
-  
-  clear1 = load_basic_info("data/clear1.dat");
-  printf("%i\n", clear1.height);
-  printf("%i\n", clear1.width);
-  return 0;
-  
+int find_start(char *buffer){
+  for(int i = 0; i < 64; i++){
+    if((buffer+i) == '.') return (i - 2);
+  }
+  printf("fail\n");
 }
+
+void data_get(char *file_name){
+  img_file = fopen(file_name, "r");
+  char buffer[64];
+  fread(buffer, 1, 64, img_file);
+  //for(int i = 0; i < 64; i++) printf("%c", buffer[i]);
+  int tee = find_start(buffer);
+  printf("%c\n", buffer[tee]);
+}
+
+
